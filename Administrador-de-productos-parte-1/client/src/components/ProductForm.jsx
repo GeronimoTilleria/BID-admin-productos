@@ -2,9 +2,9 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
-import '../stylesheets/ProductForm.css'
+//import '../stylesheets/ProductForm.css'
 
-const ProductForm = () => {
+const ProductForm = ({ senal, setSenal }) => {
 
     const [formularioEnviado, setFormularioEnviado] = useState(false);
 
@@ -30,10 +30,8 @@ const ProductForm = () => {
                     axios.post('http://localhost:8000/api/products', values)
                         .then(res => console.log(res))
                         .catch(err => console.log(err))
-                    // axios.post('http://localhost:8000/api/products', values)
-                    //     .then(res => console.log(res.data))
-                    //     .catch(err => console.log(err));
                     setFormularioEnviado(true);
+                    setSenal(senal + 1);
                     resetForm();
                     setTimeout(() => {
                         setFormularioEnviado(false)
@@ -76,38 +74,6 @@ const ProductForm = () => {
                 </Form>
             </Formik>
         </>
-
-        // <>
-        //     <h3 className='text-center my-3'>Product Manager</h3>
-        //     <form onSubmit={handleSubmit} className='w-25 mx-auto d-flex flex-column gap-2'>
-        //         <div className="form-group row">
-        //             <label htmlFor='inputTitle' className="col-sm-4 col-form-label">Title</label>
-        //             <div className="col-sm-8">
-        //                 <input type="text" name='title' className="form-control" id="inputTitle" onChange={handleChanges} />
-        //             </div>
-        //         </div>
-
-        //         <div className="form-group row">
-        //             <label htmlFor='inputPrice' className="col-sm-4 col-form-label">Price</label>
-        //             <div className="col-sm-8">
-        //                 <input type="number" name='price' className="form-control" id="inputPrice" onChange={handleChanges} />
-        //             </div>
-        //         </div>
-
-        //         <div className="form-group row">
-        //             <label htmlFor='inputDescription' className="col-sm-4 col-form-label">Description</label>
-        //             <div className="col-sm-8">
-        //                 <input type="text" name='description' className="form-control" id="inputDescription" onChange={handleChanges} />
-        //             </div>
-        //         </div>
-
-        //         <div className="form-group row">
-        //             <div className="col-sm-5 mx-auto mt-4">
-        //                 <button type="submit" className="btn btn-primary btn-md w-100">Create</button>
-        //             </div>
-        //         </div>
-        //     </form>
-        // </>
     )
 }
 
