@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout";
 import NotFound from "../pages/NotFound";
 import Product from "../pages/Product";
 import ProductsAdd from "../pages/ProductsAdd";
+import ProductUpdate from "../pages/ProductUpdate";
 
 export const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
                 path: "/:id",
                 element: <Product />,
             },
+            {
+                path: "/update/:id",
+                element: <ProductUpdate />,
+            }
         ]
     },
     

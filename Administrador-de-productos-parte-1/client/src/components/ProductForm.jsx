@@ -1,12 +1,12 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { useState } from 'react';
 import * as Yup from 'yup';
-import axios from 'axios';
 //import '../stylesheets/ProductForm.css'
 
-const ProductForm = ({ senal, setSenal }) => {
+const ProductForm = ({ initialValue, setForm, formularioEnviado, actionText }) => {
 
-    const [formularioEnviado, setFormularioEnviado] = useState(false);
+    
+
+    
 
     const validationProductSchema = Yup.object().shape({
         title: Yup.string()
@@ -23,20 +23,10 @@ const ProductForm = ({ senal, setSenal }) => {
         <>
             <h3 className='text-center my-3'>Product Manager</h3>
             <Formik
-                initialValues={{ title: '', price: '', description: '' }}
+                enableReinitialize={true}
+                initialValues={initialValue}
                 validationSchema={validationProductSchema}
-                onSubmit={(values, { resetForm }) => {
-                    console.log(values);
-                    axios.post('http://localhost:8000/api/products', values)
-                        .then(res => console.log(res))
-                        .catch(err => console.log(err))
-                    setFormularioEnviado(true);
-                    setSenal(senal + 1);
-                    resetForm();
-                    setTimeout(() => {
-                        setFormularioEnviado(false)
-                    }, 5000);
-                }}
+                onSubmit={setForm}
             >
                 <Form className='w-25 mx-auto d-flex flex-column gap-2'>
                     <div className="form-group row">
@@ -67,7 +57,7 @@ const ProductForm = ({ senal, setSenal }) => {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-5 mx-auto my-4">
-                            <button type="submit" className="btn btn-primary btn-md w-100">Create</button>
+                            <button type="submit" className="btn btn-primary btn-md w-100">{actionText}</button>
                         </div>
                         {formularioEnviado && <div className="alert alert-success text-center" role="alert">Enviado exitosamente!!</div>}
                     </div>
